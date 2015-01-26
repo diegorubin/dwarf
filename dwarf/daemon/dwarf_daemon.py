@@ -6,7 +6,7 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import run
 
-from base import Daemon
+from dwarf.daemon.base import Daemon
 
 
 # Path to the client_secret.json file downloaded from the Developer Console
@@ -21,10 +21,10 @@ STORAGE = Storage('gmail.storage')
 class DwarfDaemon(Daemon):
     def run(self):
         while True:
-            time.sleep(3000)
-
             print 'get messages...'
-            self.fetch_emails()
+            #self.fetch_emails()
+
+            time.sleep(30)
 
     def fetch_emails(self):
         # Start the OAuth flow to retrieve credentials

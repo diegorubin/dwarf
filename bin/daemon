@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+
 try:
     from dwarf.daemon.dwarf_daemon import *
 except ImportError:
@@ -9,7 +11,7 @@ except ImportError:
     from dwarf.daemon.dwarf_daemon import *
 
 if __name__ == "__main__":
-    daemon = DwarfDaemon('/tmp/daemon-example.pid')
+    daemon = DwarfDaemon('/tmp/dwarf.pid', stdout="/var/log/dwarf/dwarf.log")
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             daemon.start()
