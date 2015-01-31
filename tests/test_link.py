@@ -12,26 +12,8 @@ except ImportError:
     from dwarf.link.base import *
 
 
-class test_base(unittest.TestCase):
-
-    def test_persist(self):
-
-        link_example = "http://google.com"
-        doc = Link("http://google.com")
-        doc.link = link_example
-        self.assertTrue(doc.save())
-
-        uid = doc._id
-        rd = load_link(uid)
-        self.assertEqual(rd.link,link_example)
-
-    def test_recorver_links(self):
-
-        doc = Link("http://google.com")
-        self.assertTrue(doc.save())
-
-        links = all_links()
-        self.assertTrue(len(links) > 0)
+class TestLink(unittest.TestCase):
+    pass
 
 unittest.main()
 

@@ -11,7 +11,8 @@ except ImportError:
     from dwarf.daemon.dwarf_daemon import *
 
 if __name__ == "__main__":
-    daemon = DwarfDaemon('/tmp/dwarf.pid', stdout="/var/log/dwarf/dwarf.log")
+    daemon = DwarfDaemon('/tmp/dwarf.pid', stdout="/var/log/dwarf/dwarf.log",
+                         stderr="/var/log/dwarf/dwarf.err.log")
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             daemon.start()
