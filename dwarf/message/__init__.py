@@ -5,7 +5,7 @@ class Message(object):
         self.__message = message
 
     def links(self):
-        link_pattern = re.compile('(([a-z]+:\/\/)?([\w]+\.[\w\.]+\w))')
+        link_pattern = re.compile('(([a-z]+:\/\/)?([\w]+\.[^\s]+[^.\s]))')
         groups = link_pattern.findall(self.__message)
         return [group[0] for group in groups]
 

@@ -8,6 +8,8 @@ from oauth2client.file import Storage
 from oauth2client.tools import run
 
 from dwarf.daemon.base import Daemon
+from dwarf.message import Message
+from dwarf.spreadsheet import SpreadSheet
 
 
 # Path to the client_secret.json file downloaded from the Developer Console
@@ -34,14 +36,17 @@ class DwarfDaemon(Daemon):
         # Try to retrieve credentials from storage or run the flow to generate them
         self.__credentials = STORAGE.get()
         if self.__credentials is None or self.__credentials.invalid:
-          self.__credentials = run(flow, STORAGE, http=self.__http)
+            self.__credentials = run(flow, STORAGE, http=self.__http)
 
         super(DwarfDaemon, self).__init__(pidfile, stdin, stdout, stderr)
 
     def run(self):
 
         while True:
-            self.fetch_emails()
+            try:
+                self.fetch_emails()
+            except:
+                print 'falhou'
             time.sleep(30)
 
     def fetch_emails(self):
@@ -55,6 +60,9 @@ class DwarfDaemon(Daemon):
 
         # Retrieve a page of threads
         threads = gmail_service.users().messages().list(userId='me', q='Ruby Team').execute()
+
+        # Get spreadsheet
+        spread = SpreadSheet(TITLE, self.__email, self.__password)
 
         # Print ID for each thread
         if threads['messages']:

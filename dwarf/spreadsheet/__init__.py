@@ -10,12 +10,12 @@ class SpreadSheet():
         self.__client.ClientLogin(email, password)
         self.__client.ProgrammaticLogin()
 
-        spreadsheets = client.GetSpreadsheetsFeed()
+        spreadsheets = self.__client.GetSpreadsheetsFeed()
 
         for spreadsheet_entry in spreadsheets.entry:
             if spreadsheet_entry.title.text == self.__title:
                 self.__key = spreadsheet_entry.id.text.rsplit('/')[-1]
-                worksheet = client.GetWorksheetsFeed(self.__key).entry[0]
+                worksheet = self.__client.GetWorksheetsFeed(self.__key).entry[0]
                 self.__worksheet_key = worksheet.id.text.rsplit('/')[-1]
 
     def insert_link(self, link, title):
